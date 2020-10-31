@@ -1,0 +1,95 @@
+﻿@model Ecommerce.Entity.Basket
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.totalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userId)
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.totalPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.userId)
+        </td>
+    </tr>
+</table>
+@{
+    bool check = true;
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Urun adı")
+        </th>
+        <th>
+            @Html.DisplayName("Adedi")
+        </th>
+        <th>
+            @Html.DisplayName("Birim Fiyatı")
+        </th>
+        <th>
+            @Html.DisplayName("Toplam Fiyatı")
+        </th>
+
+        <th></th>
+    </tr>
+
+    @if (Model.basketItems != null)
+    {
+        foreach (var item in Model.basketItems)
+        {
+            if (item.product.stockQuantity - item.productQuantity < 0)
+            {
+                check = false;
+            }
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.product.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.product.unitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Sepetten Çıkar", "RemoveItem", new { id = item.productId })
+                </td>
+            </tr>
+
+        }
+
+
+    }
+
+
+
+
+
+</table>
+
+    if (Model.basketItems != null && Model.basketItems.Count > 0 && check)
+    {
+        @Html.ActionLink("Sipariş Ver", "Create", "Order", null, null)
+    }
+    if (!check) {
+        <p style="color:red">Sepetinizde yeterli stok olmayan ürün mevcut</p>
+    }
+
+
+}

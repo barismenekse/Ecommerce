@@ -1,0 +1,48 @@
+﻿@model Ecommerce.Entity.User
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Giris</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <!-- Icon -->
+            <!-- Login Form -->
+            @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.userId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(Model => Model.userId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(Model => Model.userId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(Model => Model.password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(Model => Model.password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Giriş" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
